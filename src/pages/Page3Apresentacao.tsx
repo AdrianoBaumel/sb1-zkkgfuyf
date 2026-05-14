@@ -10,27 +10,33 @@ const NOTIFICATION_IMAGES = [
 const FAQ_ITEMS = [
   {
     question: '1️⃣ Preciso entender de dieta ou já ter experiência?',
-    answer: 'Não. O método é passo a passo, feito pra quem nunca seguiu dieta nenhuma.',
+    answer:
+      'Não. O método é passo a passo, feito pra quem nunca seguiu dieta nenhuma.',
   },
   {
     question: '2️⃣ Esse protocolo é seguro pra mulheres 40+ e 50+?',
-    answer: 'Sim. Ele foi criado exatamente para corpos com metabolismo mais lento.',
+    answer:
+      'Sim. Ele foi criado exatamente para corpos com metabolismo mais lento.',
   },
   {
     question: '3️⃣ Em quanto tempo começo a notar diferença no corpo?',
-    answer: 'A maioria das mulheres relatam mudanças visíveis entre 7 e 10 dias.',
+    answer:
+      'A maioria das mulheres relatam mudanças visíveis entre 7 e 10 dias.',
   },
   {
-    question: '4️⃣ Funciona mesmo pra quem treina há anos e nunca teve resultado?',
+    question:
+      '4️⃣ Funciona mesmo pra quem treina há anos e nunca teve resultado?',
     answer: 'Sim. Esse é o perfil que mais vê mudança rápida.',
   },
   {
     question: '5️⃣ Vou precisar mudar toda minha rotina ou treino?',
-    answer: 'Não. Você aplica com o treino que já faz — até em casa.',
+    answer:
+      'Não. Você aplica com o treino que já faz — até em casa.',
   },
   {
     question: '6️⃣ E se não funcionar pra mim?',
-    answer: 'Se você não ver resultado algum em 7 dias, devolvemos seu dinheiro sem nenhuma pergunta.',
+    answer:
+      'Se você não ver resultado algum em 7 dias, devolvemos seu dinheiro sem nenhuma pergunta.',
   },
   {
     question: '🎁 CLIQUE AQUI 🔒',
@@ -63,7 +69,7 @@ export default function Page3Apresentacao() {
     document.head.appendChild(script1);
 
     const script2 = document.createElement('script');
-    script2.src = 'https://fast.wistia.com/embed/z5od8d0dje.js';
+    script2.src = 'https://fast.wistia.com/embed/jhw3d6waxo.js';
     script2.async = true;
     script2.type = 'module';
     document.head.appendChild(script2);
@@ -80,38 +86,52 @@ export default function Page3Apresentacao() {
 
     const playNotificationSound = () => {
       if (isFirstNotification) {
-        // First notification: try to play, if fails, setup touch listener
-        const audio = new Audio('https://megainfo.pro/wp-content/uploads/2026/02/msg-sound.mp3');
+        const audio = new Audio(
+          'https://megainfo.pro/wp-content/uploads/2026/02/msg-sound.mp3'
+        );
+
         const playPromise = audio.play();
 
         if (playPromise !== undefined) {
           playPromise
             .then(() => {
-              // Audio played successfully
               audioContext = audio;
             })
             .catch(() => {
-              // Autoplay blocked, setup touch listener
               const enableAudio = () => {
-                const unlockAudio = new Audio('https://megainfo.pro/wp-content/uploads/2026/02/msg-sound.mp3');
-                unlockAudio.play().then(() => {
-                  unlockAudio.pause();
-                  unlockAudio.currentTime = 0;
-                  audioContext = unlockAudio;
-                }).catch(() => {});
+                const unlockAudio = new Audio(
+                  'https://megainfo.pro/wp-content/uploads/2026/02/msg-sound.mp3'
+                );
+
+                unlockAudio
+                  .play()
+                  .then(() => {
+                    unlockAudio.pause();
+                    unlockAudio.currentTime = 0;
+                    audioContext = unlockAudio;
+                  })
+                  .catch(() => {});
 
                 document.removeEventListener('touchstart', enableAudio);
                 document.removeEventListener('click', enableAudio);
               };
 
-              document.addEventListener('touchstart', enableAudio, { once: true });
-              document.addEventListener('click', enableAudio, { once: true });
+              document.addEventListener('touchstart', enableAudio, {
+                once: true,
+              });
+
+              document.addEventListener('click', enableAudio, {
+                once: true,
+              });
             });
         }
+
         isFirstNotification = false;
       } else {
-        // Subsequent notifications: use existing context or create new
-        const audio = new Audio('https://megainfo.pro/wp-content/uploads/2026/02/msg-sound.mp3');
+        const audio = new Audio(
+          'https://megainfo.pro/wp-content/uploads/2026/02/msg-sound.mp3'
+        );
+
         audio.play().catch(() => {});
       }
     };
@@ -125,7 +145,11 @@ export default function Page3Apresentacao() {
 
         setTimeout(() => {
           setShowNotification(false);
-          setCurrentNotificationIndex((prev) => (prev + 1) % NOTIFICATION_IMAGES.length);
+
+          setCurrentNotificationIndex(
+            (prev) => (prev + 1) % NOTIFICATION_IMAGES.length
+          );
+
           showNotificationWithDelay();
         }, 3000);
       }, delay);
@@ -142,7 +166,7 @@ export default function Page3Apresentacao() {
 
   return (
     <div className="min-h-screen bg-[#e3e3e3] relative overflow-hidden">
-      {/* Sale Notification - iPhone style at top */}
+      {/* Sale Notification */}
       {showNotification && (
         <div className="fixed top-4 left-0 right-0 z-50 flex justify-center animate-[slideDown_0.5s_ease-out] px-4">
           <img
@@ -155,7 +179,7 @@ export default function Page3Apresentacao() {
         </div>
       )}
 
-      {/* Particles effect */}
+      {/* Particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(20)].map((_, i) => (
           <div
@@ -170,10 +194,10 @@ export default function Page3Apresentacao() {
         ))}
       </div>
 
-      {/* Subtle glow around video area */}
+      {/* Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-4xl h-[60%] bg-[#f54b29] opacity-[0.03] blur-[100px] rounded-full" />
 
-      {/* Main content */}
+      {/* Main */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 py-12 sm:py-20">
         {/* Headline */}
         <h1 className="text-xl sm:text-2xl md:text-4xl font-normal text-center mb-4 sm:mb-6 leading-tight max-w-3xl text-[#292929]">
@@ -185,13 +209,24 @@ export default function Page3Apresentacao() {
           Aperte o Play abaixo
         </p>
 
-        {/* Video container */}
+        {/* Video */}
         <div className="w-full max-w-4xl mb-6 sm:mb-8 rounded-2xl overflow-hidden shadow-2xl border-4 border-[#f54b29] mx-4">
-          <style>{`wistia-player[media-id='z5od8d0dje']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/z5od8d0dje/swatch'); display: block; filter: blur(5px); padding-top:177.78%; }`}</style>
-          <wistia-player media-id="z5od8d0dje" aspect="0.5625"></wistia-player>
+          <style>{`
+            wistia-player[media-id='jhw3d6waxo']:not(:defined) {
+              background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/jhw3d6waxo/swatch');
+              display: block;
+              filter: blur(5px);
+              padding-top:177.78%;
+            }
+          `}</style>
+
+          <wistia-player
+            media-id="jhw3d6waxo"
+            aspect="0.5625"
+          ></wistia-player>
         </div>
 
-        {/* Success Stories Section */}
+        {/* Success Stories */}
         <div className="w-full max-w-4xl mb-12 sm:mb-16 mx-4">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6 sm:mb-8 text-[#292929]">
             +2mil mulheres transformadas
@@ -206,7 +241,7 @@ export default function Page3Apresentacao() {
           </div>
         </div>
 
-        {/* FAQ Section */}
+        {/* FAQ */}
         <div className="w-full max-w-3xl px-4 mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 text-[#292929]">
             F.A.Q - DÚVIDAS FREQUENTES DE QUEM CHEGOU ATÉ AQUI
@@ -219,21 +254,29 @@ export default function Page3Apresentacao() {
                 className="border border-[#df6807]/40 rounded-lg overflow-hidden transition-all duration-300 bg-gradient-to-br from-[#df6807]/15 to-[#f54b29]/10"
               >
                 <button
-                  onClick={() => setOpenFaqIndex(openFaqIndex === index ? null : index)}
+                  onClick={() =>
+                    setOpenFaqIndex(
+                      openFaqIndex === index ? null : index
+                    )
+                  }
                   className="w-full px-4 sm:px-5 py-3 sm:py-4 flex items-center justify-between text-left hover:bg-[#f54b29]/5 transition-colors"
                 >
                   <span className="text-sm sm:text-base font-medium text-[#292929] pr-4">
                     {item.question}
                   </span>
+
                   <ChevronDown
                     className={`w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 transition-transform duration-300 text-[#df6807] ${
                       openFaqIndex === index ? 'rotate-180' : ''
                     }`}
                   />
                 </button>
+
                 <div
                   className={`overflow-hidden transition-all duration-300 ${
-                    openFaqIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                    openFaqIndex === index
+                      ? 'max-h-96 opacity-100'
+                      : 'max-h-0 opacity-0'
                   }`}
                 >
                   <div className="px-4 sm:px-5 pb-3 sm:pb-4 pt-2 text-[#292929] text-sm border-t border-[#df6807]/20">
@@ -243,24 +286,32 @@ export default function Page3Apresentacao() {
               </div>
             ))}
 
-            {/* Special Offer FAQ - Highlighted */}
+            {/* Special Offer */}
             <div className="border-4 border-[#df6807] rounded-xl overflow-hidden bg-gradient-to-br from-[#f54b29]/30 via-[#df6807]/20 to-[#f54b29]/30 shadow-[0_0_40px_rgba(223,104,7,0.4)] transform hover:scale-[1.02] transition-all duration-300 animate-pulse-glow">
               <button
-                onClick={() => setOpenFaqIndex(openFaqIndex === 6 ? null : 6)}
+                onClick={() =>
+                  setOpenFaqIndex(
+                    openFaqIndex === 6 ? null : 6
+                  )
+                }
                 className="w-full px-4 sm:px-6 py-5 sm:py-6 flex items-center justify-between text-left hover:bg-[#f54b29]/30 transition-colors"
               >
                 <span className="text-base sm:text-xl font-bold text-[#000000] pr-4 drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]">
                   {FAQ_ITEMS[FAQ_ITEMS.length - 1].question}
                 </span>
+
                 <ChevronDown
                   className={`w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 transition-transform duration-300 text-[#000000] ${
                     openFaqIndex === 6 ? 'rotate-180' : ''
                   }`}
                 />
               </button>
+
               <div
                 className={`overflow-hidden transition-all duration-300 ${
-                  openFaqIndex === 6 ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'
+                  openFaqIndex === 6
+                    ? 'max-h-[800px] opacity-100'
+                    : 'max-h-0 opacity-0'
                 }`}
               >
                 <div className="px-4 sm:px-6 pb-5 sm:pb-6 pt-4">
@@ -299,4 +350,4 @@ export default function Page3Apresentacao() {
       </div>
     </div>
   );
-}
+                }
